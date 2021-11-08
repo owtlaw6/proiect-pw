@@ -1,6 +1,7 @@
 <?php
 	include "connection.php";
 	include "navbar.php";
+	error_reporting(0);
 ?>
 
 <!DOCTYPE html>
@@ -83,9 +84,8 @@
 	    	}
 	      ?>
 	    </div>
-	  <a href="add.php">Add Books</a>
+	  <a href="books.php">Books</a>
 	  <a href="request.php">Book Requests</a>
-	  <a href="info.php">Buy Information</a>
 	</div>
 
 	<div id="main">
@@ -108,7 +108,12 @@
 
 	<?php 
 		if(isset($_SESSION['student'])){
-                $query=mysqli_query($db, "SELECT * FROM `buy` WHERE email='$_SESSION[student]' ;");
+				if($_GET['identifier'] != ''){
+					$id = $_GET['identifier'];
+					mysqli_query($db,"INSERT INTO buy (email, bookid) VALUES ('$_SESSION[student]', '$id');");
+				}
+				$q="SELECT * FROM `buy` WHERE email='$_SESSION[student]'";
+                $query=mysqli_query($db, $q);
                 if(mysqli_num_rows($query)==0){
                     echo "No pending requests!";
                 }
@@ -135,7 +140,6 @@
             echo "</h2>";
         }
     ?>
-
 	
 </body>
 </html>

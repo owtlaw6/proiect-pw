@@ -86,7 +86,6 @@
 	    </div>
 	  <a href="books.php">Books</a>
 	  <a href="request.php">Book Request</a>
-	  <!--<a href="info.php">Buy Inofrmation</a>-->
 	</div>
 
 	<div id="main">
@@ -132,6 +131,7 @@
 					echo "<th>"; echo "Editura";  echo "</th>";
 					echo "<th>"; echo "Pages";  echo "</th>";
 					echo "<th>"; echo "Price";  echo "</th>";
+					echo "<th>"; echo "Buy";  echo "</th>";
 					echo "</tr>";	
                     
                     while($row=mysqli_fetch_assoc($query)){ 
@@ -143,6 +143,14 @@
 						echo "<td>"; echo $row['editura']; echo "</td>";
 						echo "<td>"; echo $row['pages']; echo "</td>";
 						echo "<td>"; echo $row['price']; echo "</td>";
+
+						echo "<td>";
+		                echo "<center><a href = 'request.php?identifier=$row[name]'>"; 
+		                ?>
+		                <button type="submit" name="submit1" class="btn btn-default">Buy</button>
+
+		                <?php
+		                echo "</td>";
 						echo "</tr>";
                     }
                     echo "</table>";
@@ -161,6 +169,7 @@
 			echo "<th>"; echo "Editura";  echo "</th>";
 			echo "<th>"; echo "Pages";  echo "</th>";
 			echo "<th>"; echo "Price";  echo "</th>";
+			echo "<th>"; echo "Buy";  echo "</th>";
 			echo "</tr>";	
 
 			while($row=mysqli_fetch_assoc($res)){
@@ -172,36 +181,19 @@
 				echo "<td>"; echo $row['editura']; echo "</td>";
 				echo "<td>"; echo $row['pages']; echo "</td>";
 				echo "<td>"; echo $row['price']; echo "</td>";
+
+				echo "<td>";
+                echo "<center><a href = 'request.php?identifier=$row[bookid]'>";
+
+                ?>
+                <button type="submit" name="submit1" class="btn btn-default">Buy</button>
+                <?php
+            	echo "</td>";
 				echo "</tr>";
 			}
 			echo "</table>";
 		}
 
-		if(isset($_POST['submit1']))
-	    {
-	      if(isset($_SESSION['student']))
-	      {
-	        mysqli_query($db,"INSERT INTO buy (email, bookid) VALUES ('$_SESSION[student]', '$_POST[bookid]');");
-	        ?>
-	          <!--<script type="text/javascript">
-	            alert("Book Request Sent! :3");
-	          </script>-->
-	          <script type="text/javascript">
-	            window.location="request.php";
-	          </script>
-
-	        <?php
-
-	      }
-	      else
-	      {
-	        ?>
-	          <script type="text/javascript">
-	            alert("You must login first!");
-	          </script>
-	        <?php
-	      }
-	    }
 	?>
 </div>
 </body>

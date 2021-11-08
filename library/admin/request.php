@@ -111,7 +111,7 @@
 	<h3 style="text-align: center;">Request for Books</h3>
 	<?php 
 		if(isset($_SESSION['student'])){
-			$res=mysqli_query($db, "select student.email,books.bookid,name,autor,editura from student inner join buy on student.email=buy.email inner join books on buy.bookid=books.bookid where buy.approve='' ;");
+			$res=mysqli_query($db, "select buy.rid,student.email,books.bookid,name,autor,editura from student inner join buy on student.email=buy.email inner join books on buy.bookid=books.bookid where buy.approve='';");
 			if(mysqli_num_rows($res)==0){
 				echo "<h2>";
                 echo "No pending requests!";
@@ -125,6 +125,8 @@
 					echo "<th>"; echo "Book Name";  echo "</th>";
 					echo "<th>"; echo "Author Name";  echo "</th>";
 					echo "<th>"; echo "Editura";  echo "</th>";
+					echo "<th>"; echo "Approve";  echo "</th>";
+					echo "<th>"; echo "Deny";  echo "</th>";
 					echo "</tr>";	
                     
                     while($row=mysqli_fetch_assoc($res)){ 
@@ -135,6 +137,19 @@
 						echo "<td>"; echo $row['autor']; echo "</td>";
 						echo "<td>"; echo $row['editura']; echo "</td>";
 
+						echo "<td>";
+		                echo "<center><a href = 'approve.php?identifier=$row[rid]'>"; 
+		                ?>
+		                <button type="submit" name="submit" class="btn btn-default">Approve</button>
+
+		                <?php
+						echo "<td>";
+		                echo "<center><a href = 'deny.php?identifier=$row[rid]'>"; 
+
+		                ?>
+		                <button type="submit" name="submit" class="btn btn-default">Deny</button>
+		                <?php
+		            	echo "</td>";
 						echo "</tr>";
                     }
                     echo "</table>";

@@ -133,6 +133,8 @@
 					echo "<th>"; echo "Editura";  echo "</th>";
 					echo "<th>"; echo "Pages";  echo "</th>";
 					echo "<th>"; echo "Price";  echo "</th>";
+					echo "<th>"; echo "Edit";  echo "</th>";
+					echo "<th>"; echo "Delete";  echo "</th>";
 					echo "</tr>";	
                     
                     while($row=mysqli_fetch_assoc($query)){ 
@@ -144,6 +146,19 @@
 						echo "<td>"; echo $row['editura']; echo "</td>";
 						echo "<td>"; echo $row['pages']; echo "</td>";
 						echo "<td>"; echo $row['price']; echo "</td>";
+						echo "<td>";
+                echo "<center><a href = 'editbook.php?identifier=$row[bookid]'>"; 
+                ?>
+                <button type="submit" name="submit" class="btn btn-default">Edit</button>
+
+                <?php
+				echo "<td>";
+                echo "<center><a href = 'delete.php?identifier=$row[bookid]'>"; 
+
+                ?>
+                <button type="submit" name="submit" class="btn btn-default">Delete</button>
+                <?php
+            echo "</td>";
 						echo "</tr>";
                     }
                     echo "</table>";
@@ -162,6 +177,8 @@
 			echo "<th>"; echo "Editura";  echo "</th>";
 			echo "<th>"; echo "Pages";  echo "</th>";
 			echo "<th>"; echo "Price";  echo "</th>";
+			echo "<th>"; echo "Edit";  echo "</th>";
+			echo "<th>"; echo "Delete";  echo "</th>";
 			echo "</tr>";	
 
 			while($row=mysqli_fetch_assoc($res)){
@@ -173,6 +190,21 @@
 				echo "<td>"; echo $row['editura']; echo "</td>";
 				echo "<td>"; echo $row['pages']; echo "</td>";
 				echo "<td>"; echo $row['price']; echo "</td>";
+				
+				echo "<td>";
+                echo "<center><a href = 'editbook.php?identifier=$row[bookid]'>"; 
+                ?>
+                <button type="submit" name="submit" class="btn btn-default">Edit</button>
+
+                <?php
+				echo "<td>";
+                echo "<center><a href = 'delete.php?identifier=$row[bookid]'>"; 
+
+                ?>
+                <button type="submit" name="submit" class="btn btn-default">Delete</button>
+                <?php
+            echo "</td>";
+				
 				echo "</tr>";
 			}
 			echo "</table>";
